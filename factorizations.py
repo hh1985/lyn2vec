@@ -125,6 +125,34 @@ def CFL(word,T):
 
     return CFL_list
 
+def FNW(word,T):
+    """
+    FNW - Nyldon factorization: Duval's algorithm.
+    """
+    FNW_list = []
+    k = 0
+    while k < len(word):
+        i = k + 1
+        j = k + 2
+        while True:
+            if j == len(word) + 1 or word[j - 1] > word[i - 1]:
+                while k < i:
+                    # print(word[k:k + j - i])
+                    FNW_list.append(word[k:k + j - i])
+                    k = k + j - i
+                break
+            else:
+                if word[j - 1] < word[i - 1]:
+                    # if word[j-1] < word[i-1], i sticks to the position of (k + 1)
+                    # move j to the next step
+                    i = k + 1
+                else:
+                    # Move i and j simultaneously.
+                    i = i + 1
+                j = j + 1
+
+    return FNW_list
+
 
 def contains(window, preview, next_c):
     """Check if [window + preview] contains [preview + next_c]"""
